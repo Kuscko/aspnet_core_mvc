@@ -12,38 +12,38 @@
         <form asp-action="Index" method="post" class="form-horizontal">
             <div class="row">
                 <label asp-for="MonthlyInvestment"
-                       class="control-label col-sm-3">
+                       class="control-label col-3">
                     Monthly Investment:
                 </label>
                 <input asp-for="MonthlyInvestment"
-                       class="form-control col-sm-3" />
+                       class="form-control col-3" />
                 <span asp-validation-for="@Model.MonthlyInvestment"
                       class="text-danger col"></span>
             </div>
             <div class="row">
                 <label asp-for="YearlyInterestRate"
-                       class="control-label col-sm-3">
+                       class="control-label col-3">
                     Yearly Interest Rate:
                 </label>
                 <input asp-for="YearlyInterestRate"
-                       class="form-control col-sm-3" />
+                       class="form-control col-3" />
                 <span asp-validation-for="@Model.YearlyInterestRate"
                       class="text-danger col"></span>
             </div>
             <div class="row">
                 <label asp-for="Years"
-                       class="control-label col-sm-3">
+                       class="control-label col-3">
                     Number of Years:
                 </label>
                 <input asp-for="Years"
-                       class="form-control col-sm-3" />
+                       class="form-control col-3" />
                 <span asp-validation-for="@Model.Years"
                       class="text-danger col"></span>
             </div>
             <div class="row">
-                <label class="control-label col-sm-3">Future Value:</label>
+                <label class="control-label col-3">Future Value:</label>
                 <input value="@ViewBag.FutureValue" readonly
-                       class="form-control col-sm-3" />
+                       class="form-control col-3" />
             </div>
             <div class="row">
                 <div class="col offset-sm-3 pl-0">
