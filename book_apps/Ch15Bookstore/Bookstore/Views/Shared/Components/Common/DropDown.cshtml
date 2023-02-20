@@ -1,0 +1,7 @@
+﻿@model DropDownViewModel
+
+<select name="filter" class="form-control m-2"
+        asp-items="@(new SelectList(
+            Model.Items, "Key", "Value", Model.SelectedValue))">
+    <option value="@Model.DefaultValue">All</option>
+</select>

@@ -1,0 +1,14 @@
+﻿h1 {
+    font-size: 1.75em;
+}
+
+.jumbotron {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: #eeeeee;
+}
+
+.input-validation-error {
+    border: 2px solid #dc3545;  /* same red as text-danger */
+    background-color: #faebd7;  /* antique white */
+}

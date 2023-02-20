@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Teacher>
+
+@{
+    ViewData["Title"] = "Teacher";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Teachers</h1>
+</div>
+
+<a asp-action="Add" class="ml-3">Add Teacher</a>
+
+<table class="table">
+    <thead>
+        <tr><th>First Name</th><th>Last Name</th><th></th></tr>
+    </thead>
+    <tbody>
+        @foreach (Teacher teacher in Model)
+        {
+            <tr>
+                <td>@teacher.FirstName</td>
+                <td>@teacher.LastName</td>
+                <td>
+                    <my-link-button action="Delete" id="@teacher.TeacherId">Delete</my-link-button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

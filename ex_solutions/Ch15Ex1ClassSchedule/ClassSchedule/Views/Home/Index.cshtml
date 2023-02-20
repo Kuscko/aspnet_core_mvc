@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Class>
+
+@{
+    ViewData["Title"] = "Class Schedule";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Class Schedule</h1>
+    <vc:day-filter></vc:day-filter>
+</div>
+
+<a asp-action="Add" asp-controller="Class" class="ml-3">Add Class</a>
+
+<table class="table">
+    <thead>
+        <tr><th>Title</th><th>Number</th><th>Teacher</th><th>Day</th><th>Time</th><th></th></tr>
+    </thead>
+    <tbody>
+        @foreach (Class c in Model) {
+        <tr>
+            <td>@c.Title</td>
+            <td>@c.Number</td>
+            <td>@c.Teacher.FullName</td>
+            <td>@c.Day.Name</td>
+            <td>@c.MilitaryTime</td>
+            <td>
+                <my-link-button action="Edit" controller="Class" id="@c.ClassId">Edit</my-link-button>
+                <my-link-button action="Delete" controller="Class" id="@c.ClassId">Delete</my-link-button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+

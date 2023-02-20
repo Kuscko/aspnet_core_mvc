@@ -1,0 +1,83 @@
+﻿@model  BookViewModel
+
+@{
+    // this view is used for add, edit, and delete. 
+    // Which one is determined by the action method name.
+    var action = ViewContext.RouteData.Values["action"].ToString().Capitalize();
+
+    ViewData["Title"] = $" | {action} Book";
+}
+
+<h1>@action Book</h1>
+
+<form asp-action="@action" asp-area="Admin" method="post">
+
+    <input type="hidden" asp-for="Book.BookId" />
+
+    <div class="form-group row">
+        <div class="col-sm-2"><label>Title:</label></div>
+
+        @* if deleting, display title in a label and put value in hidden field
+           for delete message. Otherwise, provide a text box*@
+        @if (Operation.IsDelete(action)) {
+            <div class="col-sm-4"><label>@Model.Book.Title</label></div>
+            <input type="hidden" asp-for="Book.Title" />
+        }
+        else {
+            <div class="col-sm-4">
+                <input type="text" asp-for="Book.Title" class="form-control" />
+            </div>
+            <div class="col-sm-6">
+                <span asp-validation-for="Book.Title" class="text-danger"></span>
+            </div>
+        }
+    </div>
+
+    @* if not deleting, display text boxes and drop-downs for rest of fields*@
+    @if (!Operation.IsDelete(action))
+    {
+        <div class="form-group row">
+            <div class="col-sm-2"><label>Price:</label></div>
+            <div class="col-sm-4">
+                <input type="text" asp-for="Book.Price" class="form-control" />
+            </div>
+            <div class="col-sm-6">
+                <span asp-validation-for="Book.Price" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-2"><label>Genre:</label></div>
+            <div class="col-sm-4">
+                <select asp-for="Book.GenreId" class="form-control"
+                    asp-items='@new SelectList(Model.Genres, "GenreId", "Name", Model.Book.GenreId)'>
+                </select>
+            </div>
+            <div class="col-sm-6">
+                <span asp-validation-for="Book.GenreId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label>Author(s):</label><br />
+            </div>
+            <div class="col-sm-4">
+                <select asp-for="SelectedAuthors" class="form-control"
+                    asp-items='@new MultiSelectList(Model.Authors, "AuthorId", "FullName", Model.SelectedAuthors)'>
+                </select>
+                (Hold down CTRL or CMD key to select multiple)
+            </div>
+            <div class="col-sm-6">
+                <span asp-validation-for="SelectedAuthors" class="text-danger"></span>
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-sm-4 offset-sm-2">
+            <button type="submit" class="btn btn-primary">@action</button>
+
+            @* return user to main admin page after add, or to search page otherwise *@
+            <a asp-action="@(Operation.IsAdd(action) ? "Index" : "Search")"
+               class="btn btn-primary">Cancel</a>
+        </div>
+    </div>
+</form>

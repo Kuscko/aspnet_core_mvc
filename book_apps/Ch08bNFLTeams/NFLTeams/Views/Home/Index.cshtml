@@ -1,0 +1,47 @@
+﻿@model TeamListViewModel
+@{
+    ViewData["Title"] = "NFL Teams";
+}
+<div class="row">
+    <div class="col-sm-3">
+        <h3 class="mt-3">Conference</h3>
+        <div class="list-group">
+            @foreach (Conference conf in Model.Conferences) {
+                <a asp-action="Index"
+                   asp-route-activeConf="@conf.ConferenceID"
+                   asp-route-activeDiv="@Model.ActiveDiv"
+                   class="list-group-item 
+                       @Model.CheckActiveConf(conf.ConferenceID)">@conf.Name</a>
+            }
+        </div>
+        <h3 class="mt-3">Division</h3>
+        <div class="list-group">
+            @foreach (Division div in Model.Divisions) {
+                <a asp-action="Index"
+                   asp-route-activeConf="@Model.ActiveConf"
+                   asp-route-activeDiv="@div.DivisionID"
+                   class="list-group-item 
+                       @Model.CheckActiveDiv(div.DivisionID)">@div.Name</a>
+            }
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <ul class="list-inline">
+            @foreach (Team team in Model.Teams)
+            {
+                <li class="list-inline-item">
+                    <form asp-action="Details" method="post">
+                        <button type="submit" class="bg-white border-0">
+                            <img src="~/images/@team.LogoImage" alt="@team.Name"
+                                 title="@team.Name | @team.Conference.Name @team.Division.Name" />
+                        </button>
+
+                        <input type="hidden" asp-for="@team.TeamID" />
+                        <input type="hidden" asp-for="ActiveConf" />
+                        <input type="hidden" asp-for="ActiveDiv" />
+                    </form>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

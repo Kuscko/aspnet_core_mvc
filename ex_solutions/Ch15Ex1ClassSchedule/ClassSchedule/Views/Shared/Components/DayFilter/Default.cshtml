@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Day>
+
+@{ 
+    // get value of id route segment
+    int id = Convert.ToInt32(ViewContext.RouteData.Values["id"]);  
+}
+
+@foreach (Day d in Model)
+{
+    <my-link-button action="Index" id="@d.DayId" class="mr-1 mb-2" 
+        is-active="@(id == d.DayId)">@d.Name</my-link-button>
+}

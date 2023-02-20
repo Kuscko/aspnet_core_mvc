@@ -1,0 +1,35 @@
+﻿@model List<Temp>
+
+@{
+    ViewData["Title"] = "Temp Manager";
+}
+    <h2 class="p-2">Temps</h2>
+
+    <a asp-action="Add" class="btn btn-dark mr-2">Add a temp</a>
+
+    <table class="table table-striped mt-2">
+        <thead>
+            <tr><th>Date</th><th>High</th><th>Low</th><th></th></tr>
+        </thead>
+        <tbody>
+            @foreach (Temp temp in Model)
+            {
+                <tr>
+                    <td>@temp.Date?.ToShortDateString()</td>
+                    <td>@temp.Low</td>
+                    <td>@temp.High</td>
+                    <td><a asp-action="Delete" asp-route-id="@temp.Id" class="btn btn-dark">Delete</a></td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr><td colspan="4"></td></tr>
+            <tr>
+                <td><strong class="mr-1">Lowest:</strong>@Model.Min(t => t.Low)?.ToString("n2")</td>
+                <td><strong class="mr-1">Highest:</strong>@Model.Max(t => t.High)?.ToString("n2")</td>
+                <td><strong class="mr-1">Avg Low:</strong>@Model.Average(t => t.Low)?.ToString("n2")</td>
+                <td><strong class="mr-1">Avg High:</strong>@Model.Average(t => t.High)?.ToString("n2")</td>
+            </tr>
+        </tfoot>
+    </table>
+    <hr />

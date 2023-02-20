@@ -1,0 +1,7 @@
+﻿@model Author
+
+<a asp-action="Details"  asp-controller="Author" asp-area=""
+    asp-route-id="@Model.AuthorId"
+    asp-route-slug="@Model.FullName.Slug()">
+    @Model.FullName
+</a>

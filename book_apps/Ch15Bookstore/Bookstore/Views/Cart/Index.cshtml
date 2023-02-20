@@ -1,0 +1,81 @@
+﻿@model CartViewModel
+
+@{
+    ViewData["Title"] = " | Cart";
+}
+
+<h1>Your Cart</h1>
+
+<form asp-action="Clear" method="post">
+    <ul class="list-group mb-4">
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col">
+                    Subtotal: @Model.SubTotal.ToString("c")
+                </div>
+                <div class="col">
+                    <div class="float-right">
+                        <a asp-action="Checkout" my-button>Checkout</a>
+                        <button type="submit">Clear Cart</button>
+                        <a asp-action="List" asp-controller="Book"
+                           asp-all-route-data="@Model.BookGridRoute">Back to Shopping</a>
+                    </div>
+                    
+                </div>
+            </div>
+        </li>
+    </ul>
+</form>
+<form asp-action="Remove" method="post">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Title</th>
+                <th>Author(s)</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CartItem item in Model.List)  {
+                @* don't use link partial views here bc cart objects are BookDTO and dictionary<int, string>, not book and author *@
+                <tr>
+                    <td>
+                        <a asp-action="Details" asp-controller="Book"
+                           asp-route-id="@item.Book.BookId"
+                           asp-route-slug="@item.Book.Title.Slug()">
+                            @item.Book.Title
+                        </a>
+                    </td>
+                    <td>
+                        
+                        @foreach (var keyValuePair in item.Book.Authors) {
+                            <p>
+                                <a asp-action="Details" asp-controller="Author"
+                                   asp-route-id="@keyValuePair.Key"
+                                   asp-route-slug="@keyValuePair.Value.Slug()">
+                                    @keyValuePair.Value
+                                </a>
+                            </p>
+                        }
+                    </td>
+                    <td>@item.Book.Price.ToString("c")</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.SubTotal.ToString("c")</td>
+                    <td>
+                        <div class="float-right">
+                            <a asp-action="Edit" asp-controller="Cart"
+                               asp-route-id="@item.Book.BookId"
+                               asp-route-slug="@item.Book.Title.Slug()" 
+                               my-button>Edit</a>
+                            <button type="submit" name="id" value="@item.Book.BookId">
+                                Remove</button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

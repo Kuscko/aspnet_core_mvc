@@ -1,0 +1,35 @@
+﻿@model TeamViewModel
+
+@{
+    ViewData["Title"] = "Team Details";
+}
+
+<h2 class="text-center">Team Details</h2>
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <ul class="list-group text-center">
+            <li class="list-group-item">
+                <img src="~/images/@Model.Team.LogoImage" alt="" />
+                <h3>@Model.Team.Name</h3>
+            </li>
+            <li class="list-group-item">
+                <h4>Conference: @Model.Team.Conference.Name</h4>
+            </li>
+            <li class="list-group-item">
+                <h4>Division: @Model.Team.Division.Name</h4>
+            </li>
+            <li class="list-group-item">
+                <form asp-action="Add" method="post">
+                    <a asp-action="Index" class="btn btn-primary"
+                       asp-route-activeConf="@Model.ActiveConf"
+                       asp-route-activeDiv="@Model.ActiveDiv">Return to Home Page</a>
+                    <button type="submit" class="btn btn-primary">
+                        Add to Favorites
+                    </button>
+                    <input type="hidden" asp-for="Team.TeamID" />
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>

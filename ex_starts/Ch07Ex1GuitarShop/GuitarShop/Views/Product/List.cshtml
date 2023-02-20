@@ -1,0 +1,59 @@
+﻿@model List<Product>
+@{
+    ViewBag.Title = "Product List";
+}
+
+<h1>Product List</h1>
+<div class="row">
+    <div class="col-sm-2">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a asp-controller="Product" asp-action="List" asp-route-id="All" 
+                    class="list-group-item 
+                    @(ViewBag.SelectedCategoryName == "All" ? "active" : "")">
+                    All
+                </a>
+            </li>
+            @foreach (Category c in ViewBag.Categories)
+            {
+                <li class="list-group-item">
+                    <a asp-controller="Product" asp-action="List" asp-route-id="@c.Name" 
+                       class="list-group-item
+                             @(ViewBag.SelectedCategoryName == c.Name ? "active" : "")">
+                        @c.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="col-sm-10">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th></th>
+                    <th></th>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.Name</td>
+                        <td>@product.Price.ToString("C")</td>
+                        <td>
+                            <a asp-controller="Product" asp-action="Details"
+                               asp-route-id="@product.ProductID"
+                               asp-route-slug="@product.Slug">View Details</a>
+                        </td>
+                        <td>
+                            <a asp-controller="Cart" asp-action="Add"
+                               asp-route-id="@product.Slug">Add to Cart</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

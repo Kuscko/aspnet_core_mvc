@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Team>
+@{
+    ViewData["Title"] = "NFL Teams";
+    string Active(string filter, string selected)
+    {
+        return (filter.ToLower() == selected.ToLower()) ? "active" : "";
+    }
+}
+<div class="row">
+    <div class="col-sm-3">
+        <h3 class="mt-3">Conference</h3>
+        <div class="list-group">
+            @foreach (Conference conf in ViewBag.Conferences)
+            {
+                <a asp-action="Index"
+                   asp-route-activeConf="@conf.ConferenceID"
+                   asp-route-activeDiv="@ViewBag.ActiveDiv"
+                   class="list-group-item @Active(conf.ConferenceID, 
+                                           ViewBag.ActiveConf)">
+                    @conf.Name
+                </a>
+            }
+        </div>
+        <h3 class="mt-3">Division</h3>
+        <div class="list-group">
+            @foreach (Division div in ViewBag.Divisions)
+            {
+                <a asp-action="Index"
+                   asp-route-activeConf="@ViewBag.ActiveConf"
+                   asp-route-activeDiv="@div.DivisionID"
+                   class="list-group-item @Active(div.DivisionID, 
+                                           ViewBag.ActiveDiv)">
+                    @div.Name
+                </a>
+            }
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <ul class="list-inline">
+            @foreach (Team team in Model)
+            {
+                <li class="list-inline-item">
+                    <img src="~/images/@team.LogoImage" alt="@team.Name" 
+                         title="@team.Name | @team.Conference.Name @team.Division.Name" />
+                </li>
+            }
+        </ul>
+    </div>
+</div>

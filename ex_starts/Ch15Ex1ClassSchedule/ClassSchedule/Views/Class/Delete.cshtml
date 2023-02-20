@@ -1,0 +1,24 @@
+﻿@model Class
+
+@{
+    ViewData["Title"] = "Delete Class";
+}
+
+<h1 class="display-4">Delete Class</h1>
+<ul class="list-group mb-2">
+    <li class="list-group-item">
+        <h4>@Model?.Title @Model?.Number</h4>
+    </li>
+    <li class="list-group-item">
+        Teacher: @Model?.Teacher.FullName
+    </li>
+    <li class="list-group-item">
+        Day and Time: @Model?.Day.Name @Model?.MilitaryTime
+    </li>
+</ul>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="ClassId" />
+    <button type="submit">Delete</button>
+    <my-link-button action="Index" controller="Home">Cancel</my-link-button>
+</form>

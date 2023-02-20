@@ -1,0 +1,27 @@
+﻿@model TeamViewModel
+@{
+    ViewData["Title"] = "Team Details";
+}
+
+<h2 class="text-center p-2">Team Details</h2>
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <ul class="list-group text-center">
+            <li class="list-group-item">
+                <img src="~/images/@Model.Team.LogoImage" alt="" />
+                <h3>@Model.Team.Name</h3>
+            </li>
+            <li class="list-group-item">
+                <h4>Conference: @Model.Team.Conference.Name</h4>
+            </li>
+            <li class="list-group-item">
+                <h4>Division: @Model.Team.Division.Name</h4>
+            </li>
+            <li class="list-group-item">
+                <a asp-action="Index" asp-route-activeConf="@Model.ActiveConf"
+                   asp-route-activeDiv="@Model.ActiveDiv">Return to Home Page</a>
+            </li>
+        </ul>
+    </div>
+</div>

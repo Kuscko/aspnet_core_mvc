@@ -1,0 +1,50 @@
+﻿@model GridViewModel<Author>
+@{
+    ViewData["Title"] = " | Author Catalog";
+}
+
+<h1>Author Catalog</h1>
+
+<table class="table table-bordered table-striped table-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                <my-sorting-link sort-field="@nameof(Author.FirstName)"
+                    current="@Model.CurrentRoute">First Name</my-sorting-link>
+            </th>
+            <th>
+                <my-sorting-link sort-field="@nameof(Author.LastName)"
+                    current="@Model.CurrentRoute">Last Name</my-sorting-link>
+            </th>
+            <th>Book(s)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Author author in Model.Items) {
+        <tr>
+            @* don't use author link partial views here bc need to have different inner html (first or last name) *@
+            <td>
+                <a asp-action="Details" asp-route-id="@author.AuthorId"
+                   asp-route-slug="@author.FullName.Slug()">
+                    @author.FirstName
+                </a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@author.AuthorId"
+                   asp-route-slug="@author.FullName.Slug()">
+                    @author.LastName
+                </a>
+            </td>
+            <td>
+                @foreach (var ba in author.BookAuthors) {
+                <p>
+                    <partial name="_BookLinkPartial" model="@ba.Book" />
+                </p>
+                }
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<partial name="_PagingLinksPartial" />

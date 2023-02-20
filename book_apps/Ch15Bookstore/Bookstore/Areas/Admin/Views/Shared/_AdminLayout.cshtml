@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@section scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+
+<ul class="nav nav-tabs mt-2 mb-3">
+    <li class="nav-item">
+        <a class="nav-link" asp-action="Index" asp-controller="Book" asp-area="Admin">Manage Books</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-action="Index" asp-controller="Author" asp-area="Admin">Manage Authors</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-action="Index" asp-controller="Genre" asp-area="Admin">Manage Genres</a>
+    </li>
+</ul>
+
+@RenderBody()
+

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Class>
+
+@{
+    ViewData["Title"] = "Class Schedule";
+
+    // get value of id route segment
+    int id = Convert.ToInt32(ViewContext.RouteData.Values["id"]);  
+}
+
+<div class="text-center">
+    <h1 class="display-4">Class Schedule</h1>
+
+    @* create links to filter classes by day, mark selected day with 'btn-dark' css class *@
+    @foreach (Day d in ViewBag.Days)
+    {
+        string btnCss = (id == d.DayId) ? "btn btn-dark" : "btn btn-outline-dark";
+        <a asp-action="Index" asp-route-id="@d.DayId" class="@btnCss mr-1 mb-2">@d.Name</a>
+    }
+</div>
+
+<a asp-action="Add" asp-controller="Class" class="ml-3">Add Class</a>
+
+<table class="table">
+    <thead>
+        <tr><th>Title</th><th>Number</th><th>Teacher</th><th>Day</th><th>Time</th><th></th></tr>
+    </thead>
+    <tbody>
+        @foreach (Class c in Model) {
+        <tr>
+            <td>@c.Title</td>
+            <td>@c.Number</td>
+            <td>@c.Teacher.FullName</td>
+            <td>@c.Day.Name</td>
+            <td>@c.MilitaryTime</td>
+            <td>
+                <a asp-action="Edit" asp-controller="Class" asp-route-id="@c.ClassId"
+                   class="btn btn-outline-dark">Edit</a>
+                <a asp-action="Delete" asp-controller="Class" asp-route-id="@c.ClassId"
+                   class="btn btn-outline-dark">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+

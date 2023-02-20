@@ -1,0 +1,7 @@
+﻿@model Book
+
+<a asp-action="Details" asp-controller="Book" asp-area="" 
+    asp-route-id="@Model.BookId"
+    asp-route-slug="@Model.Title.Slug()">
+    @Model.Title
+</a>

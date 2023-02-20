@@ -1,0 +1,18 @@
+﻿@model Teacher
+
+@{
+    ViewData["Title"] = "Delete Teacher";
+}
+
+<h1 class="display-4">Delete Teacher</h1>
+<ul class="list-group mb-2">
+    <li class="list-group-item">
+        @Model.FullName
+    </li>
+</ul>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="TeacherId" />
+    <button type="submit">Delete</button>
+    <my-link-button action="Index">Cancel</my-link-button>
+</form>

@@ -1,0 +1,83 @@
+﻿@model GridViewModel<Book>
+
+@{
+    ViewData["Title"] = " | Book Catalog";
+}
+
+<h1>Book Catalog</h1>
+
+@* filter form *@
+<form asp-action="Filter" method="post" class="form-inline">
+    <label>Author: </label>
+    <vc:author-drop-down selected-value="@Model.CurrentRoute.AuthorFilter">
+    </vc:author-drop-down>
+
+    <label>Genre: </label>
+    <vc:genre-drop-down selected-value="@Model.CurrentRoute.GenreFilter">
+    </vc:genre-drop-down>
+
+    <label>Price: </label>
+    <vc:price-drop-down selected-value="@Model.CurrentRoute.PriceFilter">
+    </vc:price-drop-down>
+
+    <button type="submit" class="mr-2">Filter</button>
+    <button type="submit" name="clear" value="true">Clear</button>
+</form>
+
+@* add to cart form *@
+<form asp-action="Add" asp-controller="Cart" method="post">
+    <table class="table table-bordered table-striped table-sm">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    <my-sorting-link sort-field="@nameof(Book.Title)"
+                        current="@Model.CurrentRoute">Title</my-sorting-link>
+                </th>
+                <th>Author(s)</th>
+                <th>
+                    <my-sorting-link sort-field="@nameof(Genre)"
+                        current="@Model.CurrentRoute">Genre</my-sorting-link>
+                </th>
+                <th>
+                    <my-sorting-link sort-field="@nameof(Book.Price)"
+                        current="@Model.CurrentRoute">Price</my-sorting-link>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Book book in Model.Items)
+            {
+                <tr>
+                    <td>
+                        <partial name="_BookLinkPartial" model="@book" />
+                    </td>
+                    <td>
+                        @foreach (var ba in book.BookAuthors)
+                        {
+                            <p>
+                                <partial name="_AuthorLinkPartial" model="@ba.Author" />
+                            </p>
+                        }
+                    </td>
+                    <td>@book.Genre?.Name</td>
+                    <td>@book.Price.ToString("c")</td>
+                    <td>
+                        <button type="submit" name="id" value="@book.BookId">
+                            Add To Cart
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+
+@{
+    for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        <my-paging-link number="@i" current="@Model.CurrentRoute" />
+    }
+}
+
+@*<partial name="_PagingLinksPartial" />*@

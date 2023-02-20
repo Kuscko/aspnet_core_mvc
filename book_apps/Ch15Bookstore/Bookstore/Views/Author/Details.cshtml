@@ -1,0 +1,24 @@
+﻿@model Author
+
+@{
+    ViewData["Title"] = " | Author";
+}
+
+<h1>Author</h1>
+
+<table class="table table-bordered table-sm">
+    <thead>
+        <tr class="thead-dark">
+            <th>@Model.FullName</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @foreach (var ba in Model.BookAuthors) {
+                    <p><partial name="_BookLinkPartial" model="@ba.Book" /></p>
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
