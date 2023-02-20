@@ -5,7 +5,7 @@
 
 <h2>Movie List</h2>
 <a asp-controller="Movie" asp-action="Add">Add New Movie</a>
-<table class="table table-bordered table-striped">
+<table class="table table-hover">
     <thead>
         <tr><th>Name</th><th>Year</th><th>Genre</th><th>Rating</th><th></th></tr>
     </thead>
@@ -17,10 +17,10 @@
                 <td>@movie.Genre.Name</td>
                 <td>@movie.Rating</td>
                 <td>
-                    <a asp-controller="Movie" asp-action="Edit"
+                    <a class="btn btn-primary" asp-controller="Movie" asp-action="Edit"
                        asp-route-id="@movie.MovieId"
                        asp-route-slug="@movie.Slug">Edit</a>
-                    <a asp-controller="Movie" asp-action="Delete"
+                    <a class="btn btn-primary" asp-controller="Movie" asp-action="Delete"
                        asp-route-id="@movie.MovieId"
                        asp-route-slug="@movie.Slug">Delete</a>
                 </td>
